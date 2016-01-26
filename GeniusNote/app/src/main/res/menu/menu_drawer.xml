@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_home"
+            android:checkable="true"
+            android:icon="@drawable/ic_dashboard"
+            android:title="工作纪录"/>
+        <item
+            android:id="@+id/nav_messages"
+            android:checkable="true"
+            android:icon="@drawable/ic_event"
+            android:title="生活纪录"/>
+        <item
+            android:id="@+id/nav_friends"
+            android:checkable="true"
+            android:icon="@drawable/ic_headset"
+            android:title="明日计划"/>
+        <item
+            android:id="@+id/nav_discussion"
+            android:checkable="true"
+            android:icon="@drawable/ic_forum"
+            android:title="读书计划"/>
+    </group>
+
+    <item android:title="设置">
+        <menu>
+            <item
+                android:checkable="true"
+                android:icon="@drawable/ic_dashboard"
+                android:title="关于我们"/>
+            <item
+                android:checkable="true"
+                android:icon="@drawable/ic_forum"
+                android:title="意见反馈"/>
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.DesignDemo" parent="Base.Theme.DesignDemo">
+    </style>
+
+    <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#03a9f4</item>
+        <item name="colorPrimaryDark">#03a9f4</item>
+        <item name="colorAccent">#03a9f4</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <style name="ToolbarItemStyle" >
+        <item name="android:gravity">center</item>
+        <item name="android:padding">12.0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">@color/text_selector</item>
+        <item name="android:background">@drawable/item_click_selector</item>
+    </style>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+</resources>
