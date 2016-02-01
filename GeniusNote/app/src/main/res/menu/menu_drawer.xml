@@ -6,34 +6,36 @@
             android:id="@+id/nav_home"
             android:checkable="true"
             android:icon="@drawable/ic_dashboard"
-            android:title="工作纪录"/>
+            android:title="工作笔记"/>
         <item
             android:id="@+id/nav_messages"
             android:checkable="true"
             android:icon="@drawable/ic_event"
-            android:title="生活纪录"/>
+            android:title="学习笔记"/>
         <item
             android:id="@+id/nav_friends"
             android:checkable="true"
             android:icon="@drawable/ic_headset"
-            android:title="明日计划"/>
+            android:title="云端同步"/>
         <item
             android:id="@+id/nav_discussion"
             android:checkable="true"
             android:icon="@drawable/ic_forum"
-            android:title="读书计划"/>
+            android:title="传到云端"/>
     </group>
 
-    <item android:title="设置">
+    <item android:title="萌萌哒">
         <menu>
             <item
+                android:id="@+id/about_us"
                 android:checkable="true"
                 android:icon="@drawable/ic_dashboard"
-                android:title="关于我们"/>
+                android:title="关于萌记"/>
             <item
+                android:id="@+id/settings"
                 android:checkable="true"
                 android:icon="@drawable/ic_forum"
-                android:title="意见反馈"/>
+                android:title="我的设置"/>
         </menu>
     </item>
 

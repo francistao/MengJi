@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GeniusNote.iml" filepath="$PROJECT_DIR$/GeniusNote.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tclibrary/tclibrary.iml" filepath="$PROJECT_DIR$/tclibrary/tclibrary.iml" />
     </modules>
   </component>
 </project>

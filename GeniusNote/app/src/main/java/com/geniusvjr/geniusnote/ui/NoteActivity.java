@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -14,6 +15,7 @@ import com.geniusvjr.geniusnote.R;
 import com.geniusvjr.geniusnote.base.BaseActivity;
 import com.geniusvjr.geniusnote.db.NoteDB;
 import com.geniusvjr.geniusnote.markdown.MDWriter;
+import com.geniusvjr.geniusnote.view.SildingFinishLayout;
 
 import java.util.Calendar;
 
@@ -49,6 +51,17 @@ public class NoteActivity extends BaseActivity {
                 mNote.key = -1;
             }
         }
+        SildingFinishLayout mSildingFinishLayout = (SildingFinishLayout) findViewById(R.id.sildingFinishLayout);
+        mSildingFinishLayout
+                .setOnSildingFinishListener(new SildingFinishLayout.OnSildingFinishListener() {
+
+                    @Override
+                    public void onSildingFinish() {
+                        NoteActivity.this.finish();
+                    }
+                });
+
+        mSildingFinishLayout.setTouchView(mSildingFinishLayout);
     }
 
 
@@ -89,8 +102,7 @@ public class NoteActivity extends BaseActivity {
             intent.putExtra("Content",mMDWriter.getContent());
             startActivity(intent);
             return true;
-        }
-        else if(id == android.R.id.home) {
+        } else if(id == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -129,5 +141,12 @@ public class NoteActivity extends BaseActivity {
             NoteDB.getInstance().update(mNote);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, R.anim.base_slide_right_out);
+    }
+
 
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue">
+
+    <EditText
+        android:id="@+id/signUp_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="77dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="请输入用户名"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/signUp_password1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signUp_userName"
+        android:layout_alignStart="@+id/signUp_userName"
+        android:layout_below="@+id/signUp_userName"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="请输入密码"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/signUp_password2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signUp_password1"
+        android:layout_alignStart="@+id/signUp_password1"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="请确认密码"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/btn_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUp_password2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/button"
+        android:text="注册"/>
+</RelativeLayout>

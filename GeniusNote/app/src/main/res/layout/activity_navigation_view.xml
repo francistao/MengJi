@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/layout_root">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/id_toolbar"

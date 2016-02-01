@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_usercenter_toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue">
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="1.若您没有登录，所有笔记都会保存在本地"
+        android:textColor="@color/blue"
+        android:textSize="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2.您在没有登录时的笔记，会在登录之后同步到服务器"
+        android:textColor="@color/blue"
+        android:textSize="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3.您可以在其他设备上登录账号查看云笔记"
+        android:textColor="@color/blue"
+        android:textSize="12dp"/>
+</LinearLayout>

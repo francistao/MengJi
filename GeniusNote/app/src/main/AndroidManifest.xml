@@ -2,11 +2,17 @@
 <manifest package="com.geniusvjr.geniusnote"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -28,7 +34,43 @@
                   android:windowSoftInputMode="adjustResize">
 
         </activity>
-        <activity android:name=".ui.DisplayActivity">
+        <activity android:name=".ui.DisplayActivity"
+                  >
+
+        </activity>
+
+        <activity android:name=".ui.LoginActivity"
+                  android:theme="@style/ToolBarAndTranslucent">
+
+        </activity>
+        <activity android:name=".ui.AboutUsActivity"
+                  android:theme="@style/ToolBarAndTranslucent">
+
+        </activity>
+
+        <activity android:name=".ui.RegistActivity"
+                  android:theme="@style/ToolBarAndTranslucent">
+
+        </activity>
+
+        <activity android:name=".ui.UserCenterActivity"
+                  android:theme="@style/ToolBarAndTranslucent"
+                  >
+        </activity>
+        <activity android:name=".ui.UpdateProfileActivity"
+                  android:theme="@style/ToolBarAndTranslucent">
+        </activity>
+        <activity android:name=".ui.UpdateUsernameActivity"
+                  android:theme="@style/ToolBarAndTranslucent">
+
+        </activity>
+        <activity android:name=".ui.UpdatePasswordActivity"
+                  android:theme="@style/ToolBarAndTranslucent">
+
+        </activity>
+
+        <activity android:name=".ui.FeedbackActivity"
+                  android:theme="@style/ToolBarAndTranslucent">
 
         </activity>
     </application>

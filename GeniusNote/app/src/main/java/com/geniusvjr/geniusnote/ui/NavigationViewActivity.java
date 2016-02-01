@@ -1,5 +1,6 @@
 package com.geniusvjr.geniusnote.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,12 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.geniusvjr.geniusnote.R;
 import com.geniusvjr.geniusnote.adapter.NoteAdapter;
+import com.geniusvjr.geniusnote.constant.Constant;
 import com.geniusvjr.geniusnote.db.NoteDB;
+import com.geniusvjr.geniusnote.model.User;
+import com.geniusvjr.geniusnote.view.CircleImageView;
+import com.geniusvjr.geniusnote.widget.ModelPopup;
 
 import java.util.Calendar;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 
 
 public class NavigationViewActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -32,14 +41,25 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
 
     private static final int REQUEST_CODE_ADD = 0;
     private static final int REQUEST_CODE_EDIT = 1;
+    public static final int UPDATE_INFO = 2;
 
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private ListView mNoteListView;
     private FloatingActionButton btnAdd;
-    private NoteAdapter mNoteAdapter;
+    private CircleImageView imgHead;
 
+    private TextView userSays;
+    private TextView tvUserName;
+//    private ModelPopup mPopup;
+
+
+
+    private NoteAdapter mNoteAdapter;
+    private SharedPreferences sp;
+
+    String userName;
 
     private int currentNavigationId;
     private int mSelectedPosition;
@@ -47,11 +67,16 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bmob.initialize(this, Constant.APPID);
         setContentView(R.layout.activity_navigation_view);
         NoteDB.getInstance().open(this);
         onCheckFirstStart();
+        sp = getSharedPreferences("UserInfo", Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
+//        SharedPreferences.Editor editor = sp.edit();
+
 
         initView();
+
 
         mNoteListView = (ListView) findViewById(R.id.NoteListView);
         mNoteAdapter = new NoteAdapter(this);
@@ -67,13 +92,32 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
         };
         mNoteListView.setOnItemLongClickListener(longListener);
         mNoteListView.setOnItemClickListener(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (sp.getBoolean("login", false)) {
+//            BmobUser user = BmobUser.getCurrentUser(this);
+//            String name = user.get();
+//            User user = (User) User.getCurrentUser(this);
+//            String name = user.getName();
+//            tvUserName.setText(name);
+        }
     }
 
     private void initView() {
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.id_nv_menu);
         mNoteListView = (ListView) findViewById(R.id.NoteListView);
+        View view = View.inflate(this, R.layout.header_just_username, null);
+        View headerView = mNavigationView.getHeaderView(0);
+        tvUserName = (TextView) headerView.findViewById(R.id.id_username);
+        userSays = (TextView) headerView.findViewById(R.id.user_says);
+        imgHead = (CircleImageView) headerView.findViewById(R.id.iv_head);
+//        tvUserName.setText(userName);
+        imgHead.setOnClickListener(this);
         mNoteAdapter = new NoteAdapter(this);
         btnAdd = (FloatingActionButton) findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(this);
@@ -86,7 +130,7 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
 
         setupDrawerContent(mNavigationView);
         AdapterView.OnItemLongClickListener longListener = new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> parent, View view,int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 mSelectedPosition = position;
                 mNoteListView.showContextMenu();
                 return true;
@@ -102,8 +146,7 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
         super.onDestroy();
     }
 
-    private void setupDrawerContent(NavigationView navigationView)
-    {
+    private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
 
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -115,8 +158,16 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
                         currentNavigationId = menuItem.getItemId();
                         switch (currentNavigationId) {
                             case R.id.nav_home:
-                                finish();
                                 startActivity(new Intent(NavigationViewActivity.this, WorldActivity.class));
+                                break;
+                            case R.id.about_us:
+                                startActivity(new Intent(NavigationViewActivity.this, AboutUsActivity.class));
+                                //设置切换动画，从右边进入，左边退出
+//                                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+//                                overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+                                break;
+                            case R.id.settings:
+                                startActivity(new Intent(NavigationViewActivity.this, UserCenterActivity.class));
                                 break;
                         }
                         mDrawerLayout.closeDrawers();
@@ -128,7 +179,7 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
 
     protected void onCheckFirstStart() {
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(!mSharedPreferences.getBoolean(CONFIG_FIRST_START,true)) {
+        if (!mSharedPreferences.getBoolean(CONFIG_FIRST_START, true)) {
             return;
         }
         StringBuilder builder = new StringBuilder();
@@ -172,31 +223,29 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
         note.date = Calendar.getInstance().getTimeInMillis();
         NoteDB.getInstance().insert(note);
         SharedPreferences.Editor edit = mSharedPreferences.edit();
-        edit.putBoolean(CONFIG_FIRST_START,false);
+        edit.putBoolean(CONFIG_FIRST_START, false);
         edit.commit();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_navigation_view, menu);
         return true;
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu,View v,ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.data_menu, menu);
     }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        if(item.getItemId() == android.R.id.home)
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             mDrawerLayout.openDrawer(GravityCompat.START);
-            return true ;
+            return false;
         }
 
         return super.onOptionsItemSelected(item);
@@ -204,22 +253,33 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.btn_add:
                 Intent intent = new Intent(NavigationViewActivity.this, NoteActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_ADD);
+                //设置切换动画，从右边进入，左边退出
+                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
                 break;
+            case R.id.iv_head:
+                if (sp.getBoolean("login", false)) {
+
+                    break;
+                } else {
+                    Intent intent1 = new Intent(this, LoginActivity.class);
+                    startActivity(intent1);
+                    break;
+                }
+
+
+
         }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.DataDelete:
-                if(mSelectedPosition != -1)
-                {
+                if (mSelectedPosition != -1) {
                     NoteDB.getInstance().delete(mSelectedPosition);
                     mNoteAdapter.notifyDataSetChanged();
                 }
@@ -243,10 +303,15 @@ public class NavigationViewActivity extends ActionBarActivity implements View.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_CODE_ADD || requestCode  == REQUEST_CODE_EDIT)
-        {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD || requestCode == REQUEST_CODE_EDIT) {
             mNoteAdapter.notifyDataSetChanged();
         }
-        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == UPDATE_INFO)
+//        {
+//            tvUserName.setText("登录/注册");
+//            userSays.setText("哈哈");
+//        }
+
     }
 }

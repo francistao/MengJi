@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#03a9f4</color>
+    <color name="colorPrimaryDark">#03a9f4</color>
     <color name="colorAccent">#FF4081</color>
     <color name="window_background">#FFF5F5F5</color>
 
@@ -11,4 +11,14 @@
     <color name="toolbar_bg">#E8FFC4</color>
     <color name="toolbar_item">#5c7a29</color>
     <color name="toolbar_divider">#5c7a29</color>
+    <color name="blue">#03a9f4</color>
+    <color name="primary">#FF03A9F4</color>
+    <color name="primary_dark">#FF0288D1</color>
+    <color name="status_bar_color">@color/primary_dark</color>
+    <color name="textColor_gray">#858585</color>
+    <color name="bind_cancel_press">#ffd65284</color>
+    <color name="expert_top_tv_normal">#ffef71a1</color>
+    <color name="bind_cancel_press1">#ff7a7979</color>
+    <color name="bind_cancel">#ff999999</color>
+    <color name="textColorPrimary">#777777</color>
 </resources>

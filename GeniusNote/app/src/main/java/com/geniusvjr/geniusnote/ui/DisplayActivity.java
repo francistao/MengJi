@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import com.geniusvjr.geniusnote.R;
 import com.geniusvjr.geniusnote.base.BaseActivity;
 import com.geniusvjr.geniusnote.markdown.MDReader;
+import com.geniusvjr.geniusnote.view.SildingFinishLayout;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,15 +38,26 @@ public class DisplayActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowHomeEnabled(false);
         getActionBar().setBackgroundDrawable(getResources().getDrawable(com.geniusvjr.geniusnote.R.drawable.actionbar_bg));
         super.onCreate(savedInstanceState);
         setContentView(com.geniusvjr.geniusnote.R.layout.activity_display);
+
         checkStorageDir();
         initData();
 
         initView();
+        SildingFinishLayout mSildingFinishLayout = (SildingFinishLayout) findViewById(R.id.sildingFinishLayout);
+        mSildingFinishLayout.setOnSildingFinishListener(new SildingFinishLayout.OnSildingFinishListener() {
+            @Override
+            public void onSildingFinish() {
+                DisplayActivity.this.finish();
+            }
+        });
+        // 设置touchView到ScrollView上面
+        mSildingFinishLayout.setTouchView(mRootView);
     }
 
     @Override
@@ -188,5 +202,10 @@ public class DisplayActivity extends BaseActivity {
         return bitmap;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, R.anim.base_slide_right_out);
+    }
 
 }

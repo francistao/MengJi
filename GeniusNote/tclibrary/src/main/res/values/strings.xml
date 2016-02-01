@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">TCLibrary</string>
+    <!-- 测试 -->
+    <string name = "testStr_123456">123456</string>
+    <string name = "testStr_abcde">abcde</string>
+
+    <!-- EditText的提示 -->
+    <string name="hintInputRoomName">请输入聊天室的名字</string>
+    <string name="hintInputNickName">请输入用户名</string>
+    <string name="hintInputPassword">请输入密码</string>
+    <string name="hintConfirmPassword">请再次输入密码</string>
+
+    <!-- 注册 -->
+    <string name="signup">注册</string>
+    <!-- 新用户注册 -->
+    <string name ="newUserSignUp">新用户注册</string>
+    <!-- 立即登录 -->
+    <string name = "loginRightNow">立即登录</string>
+    <!-- 用户注册 -->
+    <string name="title_signup">用户注册</string>
+    <!-- 注册成功 -->
+    <string name="title_signup_success">注册成功</string>
+    <!-- 注册失败 -->
+    <string name="title_signup_fail">注册失败</string>
+    <!-- 登录 -->
+    <string name="title_login">登录</string>
+</resources>
